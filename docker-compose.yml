@@ -7,12 +7,18 @@ services:
     links:
       - elasticsearch
       - redis
+      - postgres
     environment:
-      HOST: elasticsearch
-      PORT: 9200
+      EL_PORT: 9200
+      POSTGRES_PASSWORD: "timesketchdbpassword"
     ports:
       - "5000:5000"
   redis:
     image: redis
   elasticsearch:
     image: elasticsearch:1.7.5
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: "timesketch"
+      POSTGRES_PASSWORD: "timesketchdbpassword"
