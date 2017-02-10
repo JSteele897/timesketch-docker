@@ -8,9 +8,11 @@ services:
       - elasticsearch
       - redis
       - postgres
+      - celery
     environment:
       EL_PORT: 9200
       POSTGRES_PASSWORD: "timesketchdbpassword"
+      REDIS_PORT: 6379
     ports:
       - "5000:5000"
   redis:
@@ -22,3 +24,9 @@ services:
     environment:
       POSTGRES_DB: "timesketch"
       POSTGRES_PASSWORD: "timesketchdbpassword"
+  celery:
+    image: celery
+    links:
+      - redis
+    environment:
+      CELERY_BROKER_URL: "redis://redis"
