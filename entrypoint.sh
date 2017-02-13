@@ -14,5 +14,7 @@ sed -i -e "s#CELERY_RESULT_BACKEND='.*'#CELERY_RESULT_BACKEND = 'redis://redis:$
 #/usr/bin/env
 /bin/cat /etc/timesketch.conf
 tsctl add_user -u timesketch -p timesketch
+set CELERY_BROKER_URL=redis://redis:$REDIS_PORT
+celery -A timesketch.lib.tasks worker --loglevel=info &
 tsctl runserver -h 0.0.0.0 -p 5000 
 #/bin/bash
